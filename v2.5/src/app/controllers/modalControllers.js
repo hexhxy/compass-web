@@ -116,6 +116,15 @@
         $scope.switchOptions = allSwitches;
         $scope.selected_switch = allSwitches[0];
 
+        $scope.newMac = []
+
+        $scope.addNewMacAddress = function() {
+          console.log("inside the function");
+          return $scope.newMac.push({
+            address: ''
+          });
+        };
+
         $scope.ok = function() {
           return wizardService.addSingMachine($scope, $modalInstance, allMachines);
         };
