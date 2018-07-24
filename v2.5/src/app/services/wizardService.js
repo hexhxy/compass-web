@@ -1665,6 +1665,21 @@
         });
       };
 
+      WizardService.prototype.addMachineWithoutSwitch = function($scope, $modalInstance, allMachines) {
+        var request;
+        request = {};
+        request.ipmi_credentials = {}
+        request.owner_id = $scope.cluster.id;
+        // We have a list of objects for mac addresses, but taking just first address for now
+        request.mac = $scope.newMac[0].address;
+        request.ipmi_credentials.ip = $scope.ipmi;
+        request.ipmi_credentials.pass = $scope.ipmipass;
+        return this.dataService.postNewMachineWithoutSwitch(request).success(function(data) {
+          allMachines.push(data);
+          return $modalInstance.dismiss('ok');
+        });
+      };
+
       return WizardService;
 
     })();
