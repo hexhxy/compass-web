@@ -184,6 +184,10 @@
         return this.$http.post(this.settings.apiUrlBase + '/switches/' + switch_id + '/machines', angular.toJson(request));
       };
 
+      DS.prototype.postNewMachineWithoutSwitch = function(request) {
+        return this.$http.post(this.settings.apiUrlBase + '/machines', angular.toJson(request));
+      };
+
       return DS;
 
     })();
