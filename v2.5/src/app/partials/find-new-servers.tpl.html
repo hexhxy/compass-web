@@ -26,32 +26,6 @@
     </div>
     <div class="col-lg-6 col-md-6">
         <h4 style="text-align: center;" >Discover available servers</h4>
-<!--         <div>Select as many switches as needed and then click Discover Servers.</div>
-        <div class="space-10"></div>
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th><label><input ng-model="selectall" ng-change="selectAllSwitches(selectall)" type="checkbox" class="ace" ng-disabled="isFindingNewServers"> <span class="lbl"></span></label></th>
-                    <th></th>
-                    <th>Switch IP</th>
-                    <th>Port Filters</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-show="switches.length==0">
-                    <td colspan="5" class="center">No switches now. Please add switch first.</td>
-                </tr>
-                <tr ng-repeat="switch in switches" switchrow polling="switch.polling" machines="switch.machines" result="switch.result" switchinfo="switch">
-                    <td><label><input type="checkbox" class="ace" ng-model="switch.selected" ng-disabled="isFindingNewServers && switch.selected && !switch.finished"> <span class="lbl"></span></label></td>
-                    <td><span ng-if="switch.result == 'success'"><i class="ace-icon fa fa-check bigger-125 green"></i></span> <span ng-if="switch.result == 'error'"><i class="ace-icon fa fa-times bigger-125 red"></i></span> <span ng-if="isFindingNewServers && switch.selected && !switch.finished"><i class="ace-icon fa fa-spinner fa-spin bigger-125 orange"></i></span></td>
-                    <td>{{switch.ip}}</td>
-                    <td>{{switch.filters}}</td>
-                    <td><i class="ace-icon fa fa-pencil bigger-120 action green" ng-click="modifySwitchModal($index)"></i></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="space-10"></div> -->
         <div class="center"><button class="btn btn-sm btn-primary" ng-click="findServers()">Discover Servers</button></div>
         <div class="space-20"></div>
     </div>
