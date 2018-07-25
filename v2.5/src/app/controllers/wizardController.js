@@ -38,7 +38,13 @@
         $scope.allservers = wizardService.getAllMachinesHost();
         $scope.allAddedSwitches = [];
         wizardService.getServerColumns().success(function(data) {
-          return $scope.server_columns = data.showall;
+          $scope.server_columns = [];
+          for(var i=0; i < data.showall.length; i++) {
+              if(data.showall[i].field != "switch_ip" && data.showall[i].field != "port") {
+                $scope.server_columns.push(data.showall[i]);
+              };
+          };
+          return $scope.server_columns;
         });
         wizardService.displayDataInTable($scope, $scope.allservers);
         wizardService.watchingTriggeredStep($scope);
