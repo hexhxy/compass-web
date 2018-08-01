@@ -118,11 +118,15 @@
 
         $scope.cluster = wizardService.getClusterInfo();
 
-        $scope.newMac = []
+        $scope.newMac = [];
+        $scope.newMac.push({ 'address': '' });
+
+        var counter = 1
 
         $scope.addNewMacAddress = function() {
+          counter++;
           return $scope.newMac.push({
-            address: ''
+            'address': ''
           });
         };
 
