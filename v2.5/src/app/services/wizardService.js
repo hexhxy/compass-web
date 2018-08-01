@@ -1670,10 +1670,16 @@
         request = {};
         request.ipmi_credentials = {}
         request.owner_id = $scope.cluster.id;
-        // We have a list of objects for mac addresses, but taking just first address for now
-        request.mac = $scope.newMac[0].address;
         request.ipmi_credentials.ip = $scope.ipmi;
-        request.ipmi_credentials.pass = $scope.ipmipass;
+        request.ipmi_credentials.password = $scope.ipmipass;
+        
+        $scope.mac = {}
+        for (var i=0; i<$scope.newMac.length; i++) {
+          var eth_key = "eth"+$scope.newMac[i].counter;
+          $scope.mac[eth_key] = $scope.newMac[i].address;
+        }
+
+        request.mac = $scope.mac;
         return this.dataService.postNewMachineWithoutSwitch(request).success(function(data) {
           allMachines.push(data);
           return $modalInstance.dismiss('ok');
