@@ -37,8 +37,25 @@
 						<td colspan="9" class="center">No servers yet. Please click Discover Servers to discover available servers.</td>
 					</tr>
 					<tr ng-repeat="server in $data | filter:search" ng-class="{'success': server.new, 'hightlight': server.selected, 'grey': server.disabled}">
-						<td><label ng-init="ifPreSelect(server)"><input ng-model="server.selected" type="checkbox" class="ace" ng-disabled="server.disabled"> <span class="lbl"></span></label></td>
-						<td ng-repeat="column in server_columns" ng-show="column.visible" sortable="column.field"><span ng-switch on="column.field"><span ng-switch-when="os_installed"><span ng-if="server['os_name']"><label><input ng-model="server.reinstallos" type="checkbox" class="ace"> <span class="lbl"></span></label></span> <span ng-if="!server['os_name']">-</span></span> <span ng-switch-when="clusters"><span ng-repeat="cluster in server.clusters">{{cluster.name}}&nbsp;</span></span> <span ng-switch-default>{{server[column.field]}}</span></span></td>
+						<td>
+						    <label ng-init="ifPreSelect(server)">
+						        <input ng-model="server.selected" type="checkbox" class="ace" ng-disabled="server.disabled"> <span class="lbl"></span>
+						    </label>
+						</td>
+						<td ng-repeat="column in server_columns" ng-show="column.visible" sortable="column.field">
+							<span ng-switch on="column.field">
+								<span ng-switch-when="os_installed">
+									<span ng-if="server['os_name']">
+										<label><input ng-model="server.reinstallos" type="checkbox" class="ace"> <span class="lbl"></span></label>
+						            </span> 
+						        <span ng-if="!server['os_name']">-</span>
+						    </span> 
+						    <span ng-switch-when="clusters">
+						    	<span ng-repeat="cluster in server.clusters">{{cluster.name}}&nbsp;</span>
+						    </span> 
+						    <span ng-switch-default>{{server[column.field]}}</span>
+						    </span>
+					   </td>
 					</tr>
 				</tbody>
 			</table>
