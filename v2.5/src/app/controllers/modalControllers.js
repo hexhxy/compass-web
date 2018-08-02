@@ -117,16 +117,18 @@
         $scope.selected_switch = allSwitches[0];
 
         $scope.cluster = wizardService.getClusterInfo();
+        
+        var counter = 0;
 
         $scope.newMac = [];
-        $scope.newMac.push({ 'address': '' });
-
-        var counter = 1
+        $scope.newMac.push({ 'address': '', 'counter': 0 });
 
         $scope.addNewMacAddress = function() {
-          counter++;
+          counter = counter+1;
+
           return $scope.newMac.push({
-            'address': ''
+            'address': '',
+            'counter': counter
           });
         };
 
