@@ -29,11 +29,7 @@
       };
 
       DS.prototype.getAllMachineHosts = function(os) {
-        if (os) {
-          return $http.get(this.settings.apiUrlBase + '/switches-machines-hosts?os_id=' + os);
-        } else {
-          return this.$http.get(this.settings.apiUrlBase + '/switches-machines-hosts');
-        }
+        return this.$http.get(this.settings.apiUrlBase + '/machines');
       };
 
       DS.prototype.getWizardSteps = function() {
