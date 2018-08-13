@@ -48,7 +48,7 @@
 									<span ng-if="server['os_name']">
 										<label><input ng-model="server.reinstallos" type="checkbox" class="ace"> <span class="lbl"></span></label>
 						            </span> 
-						            <span ng-if="!server['s']">-</span>
+						            <span ng-if="!server['os_name']">-</span>
 						        </span> 
 						    	<span ng-switch-when="clusters">
 						    		<span ng-repeat="cluster in server.clusters">{{cluster.name}}&nbsp;</span>
