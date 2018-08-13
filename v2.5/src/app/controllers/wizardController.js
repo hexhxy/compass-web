@@ -46,6 +46,7 @@
           };
           return $scope.server_columns;
         });
+
         wizardService.displayDataInTable($scope, $scope.allservers);
         wizardService.watchingTriggeredStep($scope);
         $scope.hideUnselected = function() {
