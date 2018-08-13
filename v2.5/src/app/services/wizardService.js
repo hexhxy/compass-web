@@ -168,6 +168,12 @@
               $scope.tableParams.$params.count = $scope.allservers.length;
               return $scope.tableParams.reload();
             }
+
+            if (!$scope.tableParams['data']) {
+              $scope.tableParams.$params.count = $scope.allservers.length;
+              return $scope.tableParams.reload();
+            }
+            i
           }
         }, true);
       };
@@ -1435,6 +1441,7 @@
       };
 
       WizardService.prototype.displayDataInTable = function($scope, data) {
+        // window.location.reload() 
         var $filter, ipAddressPre;
         ipAddressPre = this.ipAddressPre;
         $filter = this.$filter;
@@ -1472,6 +1479,7 @@
               orderedData = data;
             }
             $scope.servers = orderedData;
+            console.log(orderedData);
             return $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
           }
         });
@@ -1669,9 +1677,10 @@
         var request;
         request = {};
         request.ipmi_credentials = {}
-        request.owner_id = $scope.cluster.id;
+        request.owner_id = 1;
         request.ipmi_credentials.ip = $scope.ipmi;
         request.ipmi_credentials.password = $scope.ipmipass;
+        request.hostname = $scope.hostname;
         
         $scope.mac = {}
         for (var i=0; i<$scope.newMac.length; i++) {

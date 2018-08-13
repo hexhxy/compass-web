@@ -47,6 +47,7 @@
                 var deferred;
                 deferred = $q.defer();
                 wizardService.getAllMachineHosts().success(function(data) {
+                  console.log("data is", data);
                   return deferred.resolve(data);
                 });
                 return deferred.promise;
