@@ -843,13 +843,14 @@
         }
         buildMachineObjectHelper = function(server) {
           if (server.reinstallos === void 0) {
+            server.machine_id = server.id;
             return {
-              "machine_id": server.id
+              "machine_id": server.machine_id
             };
           } else {
             return {
-              "machine_id": server.id,
-              // "reinstall_os": server.reinstallos
+              "machine_id": server.machine_id,
+              "reinstall_os": server.reinstallos
             };
           }
         };
@@ -870,7 +871,6 @@
           for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
             server = _ref1[_j];
             if (server.selected) {
-              console.log("server is", server);
               addHostsAction.add_hosts.machines.push(buildMachineObjectHelper(server));
             }
           }
