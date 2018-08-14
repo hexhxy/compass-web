@@ -1679,6 +1679,7 @@
 //         request.owner_id = 1;
         request.ipmi_credentials.ip = $scope.ipmi;
         request.ipmi_credentials.password = $scope.ipmipass;
+        request.ipmi_credentials.username = $scope.ipmi_username;
         // request.hostname = $scope.hostname;
         
         $scope.mac = {}
