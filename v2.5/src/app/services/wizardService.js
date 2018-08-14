@@ -843,6 +843,7 @@
         }
         buildMachineObjectHelper = function(server) {
           if (server.reinstallos === void 0) {
+            server.machine_id = server.id;
             return {
               "machine_id": server.machine_id
             };
