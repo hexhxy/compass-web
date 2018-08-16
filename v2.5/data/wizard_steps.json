@@ -23,14 +23,14 @@
     }, {
         "id": 4,
         "name": "network",
-        "title": "Physical Network",
+        "title": "Network Settings",
         "state": "",
         "template": "src/app/partials/network.tpl.html",
         "description": ""
     }, {
         "id": 5,
         "name": "network_mapping",
-        "title": "Virtual Network",
+        "title": "IP Settings",
         "state": "",
         "template": "src/app/partials/network_mapping.tpl.html",
         "description": ""
