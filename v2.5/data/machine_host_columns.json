@@ -59,11 +59,11 @@
     }, {
         "title": "Clusters",
         "field": "clusters",
-        "visible": false
+        "visible": true
     }, {
         "title": "OS",
         "field": "os_name",
-        "visible": false
+        "visible": true
     }, {
         "title": "State",
         "field": "state",
