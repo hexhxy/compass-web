@@ -85,6 +85,7 @@
             'sort-desc': tableParams.isSortBy(column.field, 'desc')}" ng-click="tableParams.sorting(column.field, tableParams.isSortBy(column.field, 'asc') ? 'desc' : 'asc')">
 						<div>{{column.title}}</div>
 					</th>
+					<th>'mgmt' interface</th>
 					<th class="networkDeleteView" ng-repeat="(name, value) in interfaces" ng-show="value.is_mgmt" ng-mouseover="deleteView=true" ng-mouseleave="deleteView=false">{{name}} <span ng-click="deleteInterface(name)" class="action"><i ng-class="{'networkDeleteButton': deleteView}" class="ace-icon fa fa-times-circle bigger-120 light-grey"></i></span></th>
 				</tr>
 			</thead>
@@ -112,8 +113,13 @@
 							<span ng-switch-default>{{server[column.field]}}</span>
 						</span>
 				    </td>
-					<td class="eth-width" ng-repeat="(name, value) in interfaces" ng-show="value.is_mgmt" ng-init="server.networks[name] = server.networks[name] === undefinded ? {} :
-              server.networks[name];interfaceIndex=$index"><input ng-model="server.networks[name].ip" placeholder="IP Address" class="form-control max-width-150 margin-bottom-0" type="text" ng-keypress data-position="position_{{total*(interfaceIndex+1)+serverIndex}}"></td>
+				    <td>
+                       <select ng-model="selected_mgmt_interface" ng-init="selected_mgmt_interface=server.mac['eth0']">
+							<option ng-repeat="(key, value) in server.mac">{{value}}</option>
+					   </select>
+				    </td>
+<!-- 					<td class="eth-width" ng-repeat="(name, value) in interfaces" ng-show="value.is_mgmt" ng-init="server.networks[name] = server.networks[name] === undefinded ? {} :
+              server.networks[name];interfaceIndex=$index"><input ng-model="server.networks[name].ip" placeholder="IP Address" class="form-control max-width-150 margin-bottom-0" type="text" ng-keypress data-position="position_{{total*(interfaceIndex+1)+serverIndex}}"></td> -->
 				</tr>
 			</tbody>
 		</table>
