@@ -8,44 +8,38 @@
 			<div class="clearfix"></div>
 			<div class="row">
 				<div class="col-sm-12">
-					<h4>Autofill IP Address for All Interfaces <button class="btn btn-sm btn-success pull-right" ng-click="openAddSubnetModal()">Add Subnet</button> <button class="btn btn-sm btn-info pull-right" ng-model="autoFill" style="margin-right:15px" ng-click="autoFillManage()">{{autoFillButtonDisplay}}</button></h4>
+					<h4>All Subnets
+						<span class="action" ng-click="openAddSubnetModal()"><i class="fa fa-plus-circle bigger-140 blue"></i></span>
+						<button class="btn btn-sm btn-info pull-right" ng-model="autoFill" style="margin-right:15px" ng-click="autoFillManage()">{{autoFillButtonDisplay}}</button></h4>
 					<table class="table table-hover nowrap">
 						<thead>
 							<tr>
-								<th>Action</th>
-								<th>Interface</th>
-								<th>Is OS Install Network</th>
-								<th>Promisc Mode</th>
+								<th>ID</th>
+								<th>Name</th>
 								<th>Subnet</th>
 								<th ng-if="autoFill">Autofill Rules</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td><span ng-click="addInterface(newInterface)" class="action"><i class="fa fa-plus-circle bigger-140 blue"></i></span></td>
-								<td><input class="input-small" type="text" ng-model="newInterface.name" placeholder="Interface" required></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr ng-repeat="(interface_name, value) in interfaces track by $index">
-								<td><span class="action" ng-click="deleteInterface(interface_name)"><i class="fa fa-minus-circle bigger-140 blue"></i></span></td>
-								<td>{{interface_name}}</td>
-								<td><label><input ng-model="value.is_mgmt" type="checkbox" class="ace" name="is-mgmt" ng-click="selectAsInstallInterface($event, interface_name)"> <span class="lbl"></span></label></td>
-								<td><label><input ng-model="value.is_promiscuous" type="checkbox" class="ace" name="promisc"> <span class="lbl"></span></label></td>
-								<td><select ng-model="value.subnet_id" class="max-width-200">
-										<option ng-repeat="sub in subnetworks" value="{{sub.id}}" ng-selected="sub.id == value.subnet_id">{{sub.subnet}}</option>
-									</select></td>
-								<td ng-if="autoFill"><span ng-show="value.is_mgmt"><input id="{{interface_name}}-ipstart" type="text" ng-model="sub.autoInput" class="input-medium" placeholder="IP Start"><select id="{{interface_name}}-increase-num">
+         					<tr ng-repeat="sub in subnetworks track by $index">
+ 	                            <td>{{sub.id}}</td>
+ 								<td>{{sub.name}}</td>
+ 								<td>{{sub.subnet}}</td>
+
+								<td ng-if="autoFill">
+									<span ng-show="value.is_mgmt">
+										<input id="{{interface_name}}-ipstart" type="text" ng-model="sub.autoInput" class="input-medium" placeholder="IP Start">
+										<select id="{{interface_name}}-increase-num">
 											<option value="1">Increase by 1</option>
 											<option value="2">Increase by 2</option>
 											<option value="3">Increase by 3</option>
 											<option value="4">Increase by 4</option>
 											<option value="5">Increase by 5</option>
-										</select></span></td>
+										</select>
+								   </span>
+								</td>
 							</tr>
 							<tr style="border:none">
-								<td></td>
-								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -114,8 +108,8 @@
 						</span>
 				    </td>
 				    <td>
-                       <select ng-model="selected_mgmt_interface" ng-init="selected_mgmt_interface=server.mac['eth0']">
-							<option ng-repeat="(key, value) in server.mac">{{value}}</option>
+                       <select ng-model="selected_mgmt_interface" ng-init="selected_mgmt_interface='eth0'">
+							<option ng-repeat="(key, value) in server.mac">{{key}}</option>
 					   </select>
 				    </td>
 <!-- 					<td class="eth-width" ng-repeat="(name, value) in interfaces" ng-show="value.is_mgmt" ng-init="server.networks[name] = server.networks[name] === undefinded ? {} :
