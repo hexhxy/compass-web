@@ -54,9 +54,9 @@
 						    		<span ng-repeat="cluster in server.clusters">{{cluster.name}}&nbsp;</span>
 						    	</span> 
 						    	<span ng-switch-when="mac">
-						    	<select> 
+						    	<select  style="width:140px;"> 
 									    <option ng-repeat="(key, value) in server.mac">{{key}}- {{value}}</option>
-									</select>
+								</select>
 						    	</span>
 						    	<span ng-switch-default>{{server[column.field]}}</span>
 						    </span>

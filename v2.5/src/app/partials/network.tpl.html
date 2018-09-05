@@ -3,6 +3,65 @@
 		<div class="alert alert-info"><span>Please provide 3 subnets.</span><br><span>Check one as OS install network and use Autofill to assign ips. This is used to install OS.</span><br><span>The other 2 subnets are used in the next step to configure openstack network.</span></div>
 	</div>
 	<div class="space-10"></div>
+
+	<div class="row">
+		<div collapse="providerNetwork.isCollapsed" class="dashed-panel" style="height: auto; background-color: rgba(224, 226, 227, 0.25)"><span class="action pull-right" ng-click="providerNetwork.isCollapsed = true;"><i class="ace-icon fa fa-times-circle bigger-120 networkDeleteButton"></i></span>
+			<h4> Provider Network Settings </h4>
+			<div class="space-10"></div>
+			<div class="clearfix"></div>
+			<div class="row">
+				<div class="col-sm-6">
+					<label>Name</label>
+                    <input type="text" placeholder="Name">
+                </div>
+                <div class="col-sm-6">
+                	<label>Network</label>
+                    <input type="text" placeholder="Name">
+                </div>
+				<div class="space-10"></div>
+			</div>
+			<div class="space-10"></div>
+			<div class="row">
+				<div class="col-sm-6">
+					<label>Interface</label>
+                    <input type="text" placeholder="Name">
+                </div>
+                <div class="col-sm-6">
+                	<label>Type</label>
+                    <input type="text" placeholder="Name">
+                </div>
+				<div class="space-10"></div>
+		    </div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div collapse="tenantNetwork.isCollapsed" class="dashed-panel" style="height: auto; background-color: rgba(224, 226, 227, 0.25)"><span class="action pull-right" ng-click="tenantNetwork.isCollapsed = true;"><i class="ace-icon fa fa-times-circle bigger-120 networkDeleteButton"></i></span>
+			<h4> Tenant Network Settings </h4>
+			<div class="space-10"></div>
+			<div class="clearfix"></div>
+			<div class="row">
+				<div class="col-sm-6">
+					<label>Type</label>
+                    <input type="text" placeholder="Name">
+                </div>
+                <div class="col-sm-6">
+                	<label>Range</label>
+                    <input type="text" placeholder="Name">
+                </div>
+				<div class="space-10"></div>
+			</div>
+			<div class="space-10"></div>
+			<div class="row">
+				<div class="col-sm-6">
+					<label>Provider Network</label>
+                    <input type="text" placeholder="Name">
+                </div>
+				<div class="space-10"></div>
+		    </div>
+		</div>
+	</div>
+
 	<div class="row">
 		<div collapse="autoFillPanel.isCollapsed" class="dashed-panel" style="height: auto; background-color: rgba(224, 226, 227, 0.25)"><span class="action pull-right" ng-click="autoFillPanel.isCollapsed = true;"><i class="ace-icon fa fa-times-circle bigger-120 networkDeleteButton"></i></span>
 			<div class="clearfix"></div>
@@ -31,7 +90,7 @@
  	                            <td>{{sub.id}}</td>
  								<td>{{sub.name}}</td>
  								<td>{{sub.subnet}}</td>
-
+<div class="pull-right"><button class="btn btn-sm btn-info" ng-init="autoFillPanel.isCollapsed = true;" ng-click="autoFillPanel.isCollapsed = !autoFillPanel.isCollapsed">Set Subnet&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !autoFillPanel.isCollapsed}"></i></span></button></div>
 <!-- 								<td ng-if="autoFill">
 									<span ng-show="value.is_mgmt">
 										<input id="{{interface_name}}-ipstart" type="text" ng-model="sub.autoInput" class="input-medium" placeholder="IP Start">
@@ -73,7 +132,11 @@
 				</ul>
 			</div>
 		</div>
-		<div class="pull-right"><button class="btn btn-sm btn-info" ng-init="autoFillPanel.isCollapsed = true;" ng-click="autoFillPanel.isCollapsed = !autoFillPanel.isCollapsed">Set Subnet&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !autoFillPanel.isCollapsed}"></i></span></button></div>
+		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-init="tenantNetwork.isCollapsed = true;" ng-click="tenantNetwork.isCollapsed = !tenantNetwork.isCollapsed">Set Tenant Network&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !tenantNetwork.isCollapsed}"></i></span></button></div>
+
+		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-init="providerNetwork.isCollapsed = true;" ng-click="providerNetwork.isCollapsed = !providerNetwork.isCollapsed">Set Provider Network&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !providerNetwork.isCollapsed}"></i></span></button></div>&nbsp;&nbsp;&nbsp;
+
+		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-init="autoFillPanel.isCollapsed = true;" ng-click="autoFillPanel.isCollapsed = !autoFillPanel.isCollapsed">Set Subnet&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !autoFillPanel.isCollapsed}"></i></span></button></div> &nbsp;&nbsp;&nbsp;
 	</div>
 	<alert ng-repeat="alert in networkAlerts" class="autofill-success fade-animation" type="success">{{alert.msg}}</alert>
 	<div class="row">
