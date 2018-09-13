@@ -153,6 +153,11 @@
       '$rootScope', '$scope', 'wizardService', 'ngTableParams', '$filter', '$modal', '$timeout', '$cookieStore', function($rootScope, $scope, wizardService, ngTableParams, $filter, $modal, $timeout, $cookieStore) {
         wizardService.networkInit($scope);
         wizardService.watchingTriggeredStep($scope);
+        console.log($scope.cluster.id);
+        $scope.cluster_config = wizardService.getClusterConfig($scope.cluster.id);
+        console.log($scope.cluster_config.os_config);
+        // $scope.providers = $scope.cluster_config["package_config"]["network_cfg"]["provider_net_mappings"];
+
         $scope.autoFillManage = function() {
           $scope.autoFill = !$scope.autoFill;
           if ($scope.autoFill) {
@@ -227,6 +232,26 @@
             return console.log("modal dismissed");
           });
         };
+
+        $scope.openAddProviderModal = function() {
+          var modalInstance;
+          modalInstance = $modal.open({
+            templateUrl: "src/app/partials/modalAddProviderNw.tpl.html",
+            controller: "addProviderModalInstanceCtrl",
+            resolve: {
+              providers: function() {
+                return $scope.providers;
+              }
+            }
+          });
+          return modalInstance.result.then(function(subnets) {
+            $scope.providers = providers;
+            // return wizardService.setProviderNw($scope.clusters.id);
+          }, function() {
+            return console.log("modal dismissed");
+          });
+        };
+
         $scope.commit = function(sendRequest) {
           var installInterface, name, subnet, value, _i, _len, _ref, _ref1;
           installInterface = {};

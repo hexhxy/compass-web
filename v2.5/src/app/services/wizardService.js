@@ -140,6 +140,14 @@
         });
       };
 
+      // WizardService.prototype.setProviderNw = function() {
+      //   var wizardFactory;
+      //   wizardFactory = this.wizardFactory;
+      //   return this.dataService.getClusterConfig(cluster_id).success(function(data) {
+      //     return wizardFactory.setProviderNw(data);
+      //   });
+      // };
+
       WizardService.prototype.getServerColumns = function() {
         return this.dataService.getServerColumns();
       };
@@ -205,6 +213,14 @@
           return $scope.os_global_config = this.wizardFactory.getOsGlobalConfig();
         }
       };
+
+      WizardService.prototype.getClusterConfig = function(cluster_id) {
+        return this.dataService.getClusterConfig(cluster_id).success(function(data) {
+          console.log("inside here");
+          console.log(data.os_config.partition);
+          return data;
+        });
+      }
 
       WizardService.prototype.networkInit = function($scope) {
         $scope.cluster = this.wizardFactory.getClusterInfo();
