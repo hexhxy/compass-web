@@ -158,6 +158,7 @@
 
         if($scope.cluster.adapter_name === "openstack_pike" || $scope.cluster.adapter_name === "openstack_ocata" || $scope.cluster.adapter_name === "openstack_newton") {
           $scope.providers = $scope.package_config.network_cfg.provider_net_mappings;
+          $scope.tenant_net = $scope.package_config.network_cfg.tenant_net_info;
         }
 
         $scope.autoFillManage = function() {
