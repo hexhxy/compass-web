@@ -6,32 +6,33 @@
 
 	<div class="row">
 		<div collapse="providerNetwork.isCollapsed" class="dashed-panel" style="height: auto; background-color: rgba(224, 226, 227, 0.25)"><span class="action pull-right" ng-click="providerNetwork.isCollapsed = true;"><i class="ace-icon fa fa-times-circle bigger-120 networkDeleteButton"></i></span>
-			<h4> Provider Network Settings </h4>
-			<div class="space-10"></div>
 			<div class="clearfix"></div>
 			<div class="row">
-				<div class="col-sm-6">
-					<label>Name</label>
-                    <input type="text" placeholder="Name">
-                </div>
-                <div class="col-sm-6">
-                	<label>Network</label>
-                    <input type="text" placeholder="Name">
-                </div>
-				<div class="space-10"></div>
+				<div class="col-sm-12">
+					<h4>Provider Network Settings
+						<span class="action" ng-click="openAddProviderModal('lg')"><i class="fa fa-plus-circle bigger-140 blue"></i></span>
+					</h4>
+					<table class="table table-hover nowrap">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Network</th>
+								<th>Interface</th>
+								<th>Type</th>
+							</tr>
+						</thead>
+						<tbody>
+         					<tr ng-repeat="sub in providers track by $index">
+ 	                            <td>{{sub.name}}</td>
+ 								<td>{{sub.network}}</td>
+								<td>{{sub.interface}}</td>
+								<td>{{sub.type}}</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="space-10"></div>
+				</div>
 			</div>
-			<div class="space-10"></div>
-			<div class="row">
-				<div class="col-sm-6">
-					<label>Interface</label>
-                    <input type="text" placeholder="Name">
-                </div>
-                <div class="col-sm-6">
-                	<label>Type</label>
-                    <input type="text" placeholder="Name">
-                </div>
-				<div class="space-10"></div>
-		    </div>
 		</div>
 	</div>
 
@@ -41,24 +42,26 @@
 			<div class="space-10"></div>
 			<div class="clearfix"></div>
 			<div class="row">
-				<div class="col-sm-6">
-					<label>Type</label>
-                    <input type="text" placeholder="Name">
-                </div>
-                <div class="col-sm-6">
-                	<label>Range</label>
-                    <input type="text" placeholder="Name">
-                </div>
-				<div class="space-10"></div>
+				<div class="col-sm-12">
+					<table>
+						<tbody></tbody>
+							<tr>
+								<td width="450px;">
+									<label>Type</label>
+									<input type="text" placeholder="Type" ng-model="tenant_net.type">
+								</td>
+								<td width="450px;">
+									<label>Range</label>
+									<input type="text" placeholder="Range" ng-model="tenant_net.range">
+								</td>
+								<td width="450px;">
+									<label>Provider Network</label>
+									<input type="text" placeholder="Provider Network" ng-model="tenant_net.provider_network">
+								</td>
+							</tr>
+					</table>
+				</div>
 			</div>
-			<div class="space-10"></div>
-			<div class="row">
-				<div class="col-sm-6">
-					<label>Provider Network</label>
-                    <input type="text" placeholder="Name">
-                </div>
-				<div class="space-10"></div>
-		    </div>
 		</div>
 	</div>
 
@@ -90,7 +93,7 @@
  	                            <td>{{sub.id}}</td>
  								<td>{{sub.name}}</td>
  								<td>{{sub.subnet}}</td>
-<div class="pull-right"><button class="btn btn-sm btn-info" ng-init="autoFillPanel.isCollapsed = true;" ng-click="autoFillPanel.isCollapsed = !autoFillPanel.isCollapsed">Set Subnet&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !autoFillPanel.isCollapsed}"></i></span></button></div>
+                                <div class="pull-right"><button class="btn btn-sm btn-info" ng-init="autoFillPanel.isCollapsed = true;" ng-click="autoFillPanel.isCollapsed = !autoFillPanel.isCollapsed">Set Subnet&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !autoFillPanel.isCollapsed}"></i></span></button></div>
 <!-- 								<td ng-if="autoFill">
 									<span ng-show="value.is_mgmt">
 										<input id="{{interface_name}}-ipstart" type="text" ng-model="sub.autoInput" class="input-medium" placeholder="IP Start">
@@ -132,9 +135,9 @@
 				</ul>
 			</div>
 		</div>
-		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-init="tenantNetwork.isCollapsed = true;" ng-click="tenantNetwork.isCollapsed = !tenantNetwork.isCollapsed">Set Tenant Network&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !tenantNetwork.isCollapsed}"></i></span></button></div>
+		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-show="cluster.adapter_name=='openstack_pike' || cluster.adapter_name=='openstack_ocata' || cluster.adapter_name=='openstack_newton'" ng-init="tenantNetwork.isCollapsed = true;" ng-click="tenantNetwork.isCollapsed = !tenantNetwork.isCollapsed">Set Tenant Network&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !tenantNetwork.isCollapsed}"></i></span></button></div>
 
-		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-init="providerNetwork.isCollapsed = true;" ng-click="providerNetwork.isCollapsed = !providerNetwork.isCollapsed">Set Provider Network&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !providerNetwork.isCollapsed}"></i></span></button></div>&nbsp;&nbsp;&nbsp;
+		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-show="cluster.adapter_name=='openstack_pike' || cluster.adapter_name=='openstack_ocata' || cluster.adapter_name=='openstack_newton'" ng-init="providerNetwork.isCollapsed = true;" ng-click="providerNetwork.isCollapsed = !providerNetwork.isCollapsed">Set Provider Network&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !providerNetwork.isCollapsed}"></i></span></button></div>&nbsp;&nbsp;&nbsp;
 
 		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-init="autoFillPanel.isCollapsed = true;" ng-click="autoFillPanel.isCollapsed = !autoFillPanel.isCollapsed">Set Subnet&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !autoFillPanel.isCollapsed}"></i></span></button></div> &nbsp;&nbsp;&nbsp;
 	</div>

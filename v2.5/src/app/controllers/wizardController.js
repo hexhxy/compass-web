@@ -150,9 +150,17 @@
         };
       }
     ]).controller('networkCtrl', [
-      '$rootScope', '$scope', 'wizardService', 'ngTableParams', '$filter', '$modal', '$timeout', '$cookieStore', function($rootScope, $scope, wizardService, ngTableParams, $filter, $modal, $timeout, $cookieStore) {
+      '$rootScope', '$scope', 'wizardService', 'dataService', 'ngTableParams', '$modal', '$timeout', '$cookieStore', function($rootScope, $scope, wizardService, dataService, ngTableParams, $modal, $timeout, $cookieStore) {
         wizardService.networkInit($scope);
         wizardService.watchingTriggeredStep($scope);
+        console.log($scope.cluster.id);
+        console.log($scope.cluster.adapter_name);
+
+        if($scope.cluster.adapter_name === "openstack_pike" || $scope.cluster.adapter_name === "openstack_ocata" || $scope.cluster.adapter_name === "openstack_newton") {
+          $scope.providers = $scope.package_config.network_cfg.provider_net_mappings;
+          $scope.tenant_net = $scope.package_config.network_cfg.tenant_net_info;
+        }
+
         $scope.autoFillManage = function() {
           $scope.autoFill = !$scope.autoFill;
           if ($scope.autoFill) {
@@ -227,6 +235,31 @@
             return console.log("modal dismissed");
           });
         };
+
+        $scope.openAddProviderModal = function(size) {
+          var modalInstance;
+          modalInstance = $modal.open({
+            templateUrl: "src/app/partials/modalAddProviderNw.tpl.html",
+            controller: "addProviderModalInstanceCtrl",
+            size: size,
+            resolve: {
+              providers: function() {
+                return $scope.providers;
+              },
+              package_config: function() {
+                return $scope.package_config;
+              }
+            }
+          });
+          return modalInstance.result.then(function(providers, package_config) {
+            $scope.providers = providers;
+            $scope.package_config = package_config;
+            // return wizardService.setProviderNw($scope.clusters.id);
+          }, function() {
+            return console.log("modal dismissed");
+          });
+        };
+
         $scope.commit = function(sendRequest) {
           var installInterface, name, subnet, value, _i, _len, _ref, _ref1;
           installInterface = {};

@@ -61,6 +61,68 @@
           return $modalInstance.dismiss('cancel');
         };
       }
+    ]).controller('addProviderModalInstanceCtrl', [
+      '$scope', '$modalInstance', 'wizardService', 'providers', 'package_config', function($scope, $modalInstance, wizardService, providers, package_config) {
+              // var subnet, _i, _len, _ref;
+        // $scope.providers = angular.copy(providers)
+        // wizardService.copyWithHashKey($scope.providers, providers);
+        // $scope.providersAllValid = true;
+        // _ref = $scope.providers;
+        // for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        //   providers = _ref[_i];
+        //   providers['valid'] = true;
+        // }
+        // if ($scope.providers.length === 0) {
+        //   $scope.providers.push({
+        //     valid: false
+        //   });
+        // }
+        // $scope.addProvider = function() {
+        //   $scope.providers.push({
+        //     valid: false
+        //   });
+        // };
+
+        // console.log($scope.package_config);
+
+        $scope.providers = providers;
+        console.log(providers);
+        console.log(package_config);
+
+        
+        // $scope.removeSubnetwork = function(index) {
+        //   $scope.providers.
+        //   wizardService.deleteSubnet($scope, index, $scope.subnetworks[index].id);
+        //   return wizardService.validateAllSubnets($scope);
+        // };
+        // $scope.subnet_change = function(index, subnet) {
+        //   var subnetRegExp;
+        //   subnetRegExp = /(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}(\/){1}([0-9]|[0-2][0-9]|3[0-2])$/;
+        //   $scope.subnetworks[index]['valid'] = subnetRegExp.test(subnet);
+        //   return wizardService.validateAllSubnets($scope);
+        // };
+        // $scope.ok = function() {
+        //   return this.dataService.updateClusterConfig($scope.cluster.id, network_mapping).success(function(data) {
+        //     wizardFactory.setNetworkMapping(networks);
+        //     wizardFactory.setPackageConfig(network_mapping.package_config);
+        //     return wizardFactory.setCommitState({
+        //       "name": "network_mapping",
+        //       "state": "success",
+        //       "message": ""
+        //     });
+        //   }).error(function(response) {
+        //     return wizardFactory.setCommitState({
+        //       "name": "network_mapping",
+        //       "state": "error",
+        //       "message": response
+        //     });
+        //   });
+        //   return wizardService.subnetCommit($scope, $modalInstance);
+        // };
+        return $scope.cancel = function() {
+          return $modalInstance.dismiss('cancel');
+        };
+      }
     ]).controller('errorMessageCtrl', [
       '$scope', '$modalInstance', 'title', 'content', function($scope, $modalInstance, title, content) {
         $scope.title = title;

@@ -206,12 +206,22 @@
         }
       };
 
+      WizardService.prototype.getClusterConfig = function(cluster_id) {
+        return this.dataService.getClusterConfig(cluster_id).success(function(data) {
+          console.log(data.os_config.partition);
+          return data.os_config.partition;
+        });
+      };
+
       WizardService.prototype.networkInit = function($scope) {
         $scope.cluster = this.wizardFactory.getClusterInfo();
         $scope.subnetworks = this.wizardFactory.getSubnetworks();
         $scope.interfaces = this.wizardFactory.getInterfaces();
         $scope.autoFill = false;
         $scope.autoFillButtonDisplay = "Enable Autofill";
+
+        $scope.package_config = this.wizardFactory.getPackageConfig();
+
         return this.dataService.getServerColumns().success(function(data) {
           return $scope.server_columns = data.showless;
         });
