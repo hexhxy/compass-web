@@ -150,13 +150,15 @@
         };
       }
     ]).controller('networkCtrl', [
-      '$rootScope', '$scope', 'wizardService', 'dataService', 'ngTableParams', '$filter', '$modal', '$timeout', '$cookieStore', function($rootScope, $scope, wizardService, dataService, ngTableParams, $filter, $modal, $timeout, $cookieStore) {
+      '$rootScope', '$scope', 'wizardService', 'dataService', 'ngTableParams', '$modal', '$timeout', '$cookieStore', function($rootScope, $scope, wizardService, dataService, ngTableParams, $modal, $timeout, $cookieStore) {
         wizardService.networkInit($scope);
         wizardService.watchingTriggeredStep($scope);
         console.log($scope.cluster.id);
-        console.log($scope.cluster);
-        $scope.providers = $scope.package_config.network_cfg.provider_net_mappings;
+        console.log($scope.cluster.adapter_name);
 
+        if($scope.cluster.adapter_name === "openstack_pike" || $scope.cluster.adapter_name === "openstack_ocata" || $scope.cluster.adapter_name === "openstack_newton") {
+          $scope.providers = $scope.package_config.network_cfg.provider_net_mappings;
+        }
 
         $scope.autoFillManage = function() {
           $scope.autoFill = !$scope.autoFill;
@@ -233,11 +235,12 @@
           });
         };
 
-        $scope.openAddProviderModal = function() {
+        $scope.openAddProviderModal = function(size) {
           var modalInstance;
           modalInstance = $modal.open({
             templateUrl: "src/app/partials/modalAddProviderNw.tpl.html",
             controller: "addProviderModalInstanceCtrl",
+            size: size,
             resolve: {
               providers: function() {
                 return $scope.providers;

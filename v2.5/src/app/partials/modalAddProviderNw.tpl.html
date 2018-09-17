@@ -11,12 +11,12 @@
 				<th>Interface</th>
 				<th>Type</th>
 				<th></th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="nw in providers">
-				<td> {{nw.name}}</td>
-				<!-- <td><input type="text" ng-model="nw.name" ng-class="{'red-border': !sub.valid}" placeholder="Name" required></td> -->
+				<td><input type="text" ng-model="nw.name" ng-class="{'red-border': !sub.valid}" placeholder="Name" required></td>
 				<td><input type="text" ng-model="nw.network" placeholder="Network"></td>
 				<td><input type="text" ng-model="nw.interface" placeholder="Interface"></td>
 				<td><input type="text" ng-model="nw.type" placeholder="Type"></td>
