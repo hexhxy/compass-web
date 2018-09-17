@@ -150,13 +150,13 @@
         };
       }
     ]).controller('networkCtrl', [
-      '$rootScope', '$scope', 'wizardService', 'ngTableParams', '$filter', '$modal', '$timeout', '$cookieStore', function($rootScope, $scope, wizardService, ngTableParams, $filter, $modal, $timeout, $cookieStore) {
+      '$rootScope', '$scope', 'wizardService', 'dataService', 'ngTableParams', '$filter', '$modal', '$timeout', '$cookieStore', function($rootScope, $scope, wizardService, dataService, ngTableParams, $filter, $modal, $timeout, $cookieStore) {
         wizardService.networkInit($scope);
         wizardService.watchingTriggeredStep($scope);
         console.log($scope.cluster.id);
-        $scope.cluster_config = wizardService.getClusterConfig($scope.cluster.id);
-        console.log($scope.cluster_config.os_config);
-        // $scope.providers = $scope.cluster_config["package_config"]["network_cfg"]["provider_net_mappings"];
+        console.log($scope.cluster);
+        $scope.providers = $scope.package_config.network_cfg.provider_net_mappings;
+
 
         $scope.autoFillManage = function() {
           $scope.autoFill = !$scope.autoFill;
@@ -241,11 +241,15 @@
             resolve: {
               providers: function() {
                 return $scope.providers;
+              },
+              package_config: function() {
+                return $scope.package_config;
               }
             }
           });
-          return modalInstance.result.then(function(subnets) {
+          return modalInstance.result.then(function(providers, package_config) {
             $scope.providers = providers;
+            $scope.package_config = package_config;
             // return wizardService.setProviderNw($scope.clusters.id);
           }, function() {
             return console.log("modal dismissed");

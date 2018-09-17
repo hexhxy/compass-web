@@ -132,10 +132,6 @@
         return this.subnetworks;
       };
 
-      WizardFactory.prototype.setProviderNw = function(clusteer_id) {
-        return this.providers = cluster_config["package_config"]["network_cfg"]["provider_net_mappings"]
-      }
-
       WizardFactory.prototype.getInterfaces = function() {
         return this.interfaces;
       };
