@@ -62,63 +62,45 @@
         };
       }
     ]).controller('addProviderModalInstanceCtrl', [
-      '$scope', '$modalInstance', 'wizardService', 'providers', 'package_config', function($scope, $modalInstance, wizardService, providers, package_config) {
-              // var subnet, _i, _len, _ref;
-        // $scope.providers = angular.copy(providers)
-        // wizardService.copyWithHashKey($scope.providers, providers);
-        // $scope.providersAllValid = true;
-        // _ref = $scope.providers;
-        // for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        //   providers = _ref[_i];
-        //   providers['valid'] = true;
-        // }
-        // if ($scope.providers.length === 0) {
-        //   $scope.providers.push({
-        //     valid: false
-        //   });
-        // }
-        // $scope.addProvider = function() {
-        //   $scope.providers.push({
-        //     valid: false
-        //   });
-        // };
-
-        // console.log($scope.package_config);
-
-        $scope.providers = providers;
-        console.log(providers);
-        console.log(package_config);
-
+      '$scope', '$modalInstance', 'wizardService', 'dataService', 'wizardFactory', 'providers', 'package_config', 'cluster_id', function($scope, $modalInstance, wizardService, dataService, wizardFactory, providers, package_config, cluster_id) {
         
-        // $scope.removeSubnetwork = function(index) {
-        //   $scope.providers.
-        //   wizardService.deleteSubnet($scope, index, $scope.subnetworks[index].id);
-        //   return wizardService.validateAllSubnets($scope);
-        // };
-        // $scope.subnet_change = function(index, subnet) {
-        //   var subnetRegExp;
-        //   subnetRegExp = /(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}(\/){1}([0-9]|[0-2][0-9]|3[0-2])$/;
-        //   $scope.subnetworks[index]['valid'] = subnetRegExp.test(subnet);
-        //   return wizardService.validateAllSubnets($scope);
-        // };
-        // $scope.ok = function() {
-        //   return this.dataService.updateClusterConfig($scope.cluster.id, network_mapping).success(function(data) {
-        //     wizardFactory.setNetworkMapping(networks);
-        //     wizardFactory.setPackageConfig(network_mapping.package_config);
-        //     return wizardFactory.setCommitState({
-        //       "name": "network_mapping",
-        //       "state": "success",
-        //       "message": ""
-        //     });
-        //   }).error(function(response) {
-        //     return wizardFactory.setCommitState({
-        //       "name": "network_mapping",
-        //       "state": "error",
-        //       "message": response
-        //     });
-        //   });
-        //   return wizardService.subnetCommit($scope, $modalInstance);
-        // };
+        $scope.providers = angular.copy(providers);
+
+        if ($scope.providers.length === 0) {
+          $scope.providers.push({
+            valid: false
+          });
+        }
+        $scope.addProvider = function() {
+          $scope.providers.push({
+            valid: false
+          });
+        };
+
+        $scope.ok = function() {
+          for(var i=0; i<=$scope.providers.length;i++) {
+            for(var prop in $scope.providers[i]) {
+              if(prop === "valid") {
+                delete $scope.providers[i]["valid"];
+              }
+            }
+          }
+
+          package_config['network_cfg']['provider_net_mappings'] = $scope.providers;
+
+          var targetSysConfigData = {
+            "package_config": package_config
+          };
+          return dataService.updateClusterConfig(cluster_id, targetSysConfigData).success(function(configData) {
+            $modalInstance.close($scope.providers);
+            return wizardFactory.setCommitState({
+              "name": "package_config",
+              "state": "success",
+              "message": ""
+            });
+          });
+        }
+
         return $scope.cancel = function() {
           return $modalInstance.dismiss('cancel');
         };

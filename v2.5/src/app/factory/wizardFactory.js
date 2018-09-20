@@ -161,6 +161,7 @@
       };
 
       WizardFactory.prototype.setCommitState = function(commitState) {
+        console.log(commitState);
         return this.commit = commitState;
       };
 
