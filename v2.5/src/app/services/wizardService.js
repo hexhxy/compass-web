@@ -216,9 +216,15 @@
       WizardService.prototype.networkInit = function($scope) {
         $scope.cluster = this.wizardFactory.getClusterInfo();
         $scope.subnetworks = this.wizardFactory.getSubnetworks();
+        for(var i = 0; i<=$scope.subnetworks.length; i++) {
+          if($scope.subnetworks[i]!= undefined) {
+            $scope.subnetworks[i]["selected"] = false;
+          }
+        }
         $scope.interfaces = this.wizardFactory.getInterfaces();
         $scope.autoFill = false;
         $scope.autoFillButtonDisplay = "Enable Autofill";
+        $scope.selected_subnets = [];
 
         $scope.package_config = this.wizardFactory.getPackageConfig();
 
@@ -985,66 +991,30 @@
       };
 
       WizardService.prototype.networkCommit = function($scope, sendRequest) {
-        var hostNetworkPromises, hostname, hostnamePromises, interfaceCount, key, network, server, updateHostnamePromise, updateNetworkPromise, value, wizardFactory, _i, _len, _ref, _ref1;
+        var wizardFactory;
         wizardFactory = this.wizardFactory;
-        if (!sendRequest) {
-          return this.wizardFactory.setCommitState({
-            "name": "network",
-            "state": "goToPreviousStep",
-            "message": ""
-          });
-        }
-        $scope.$emit("loading", true);
-        interfaceCount = Object.keys($scope.interfaces).length;
-        if (interfaceCount === 0) {
-          alert("Please add interface");
-          return;
-        }
-        hostnamePromises = [];
-        hostNetworkPromises = [];
-        _ref = $scope.servers;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          server = _ref[_i];
-          hostname = {
-            "name": server["hostname"]
-          };
-          updateHostnamePromise = this.dataService.putHost(server.id, hostname);
-          hostnamePromises.push(updateHostnamePromise);
-          _ref1 = server.networks;
-          for (key in _ref1) {
-            value = _ref1[key];
-            if (!$scope.interfaces[key]) {
-              continue;
+        $scope.selected_subnets = [];
+
+        for(var i = 0; i<=$scope.subnetworks.length; i++) {
+          console.log($scope.subnetworks[i]);
+          if($scope.subnetworks[i]!= undefined) {
+            if($scope.subnetworks[i]["selected"] == true) {
+              $scope.selected_subnets.push($scope.subnetworks[i]);
             }
-            network = {
-              "interface": key,
-              "ip": value.ip,
-              "subnet_id": parseInt($scope.interfaces[key].subnet_id),
-              "is_mgmt": $scope.interfaces[key].is_mgmt,
-              "is_promiscuous": $scope.interfaces[key].is_promiscuous
-            };
-            if (value.id === void 0) {
-              updateNetworkPromise = this.dataService.postHostNetwork(server.id, network).success(function(networkData) {
-                return server.networks[networkData["interface"]].id = networkData.id;
-              });
-            } else {
-              updateNetworkPromise = this.dataService.putHostNetwork(server.id, value.id, network);
-            }
-            hostNetworkPromises.push(updateNetworkPromise);
           }
         }
-        return this.$q.all(hostnamePromises.concat(hostNetworkPromises)).then(function() {
-          wizardFactory.setServers($scope.servers);
+
+        $scope.package_config['network_cfg']['tenant_net_info'] = $scope.tenant_net;
+
+        var targetSysConfigData = {
+          "package_config": $scope.package_config
+        };
+
+        return this.dataService.updateClusterConfig($scope.cluster.id, targetSysConfigData).success(function(configData) {
           return wizardFactory.setCommitState({
-            "name": "network",
+            "name": "package_config",
             "state": "success",
             "message": ""
-          });
-        }, function(response) {
-          return wizardFactory.setCommitState({
-            "name": "network",
-            "state": "error",
-            "message": response.data
           });
         });
       };

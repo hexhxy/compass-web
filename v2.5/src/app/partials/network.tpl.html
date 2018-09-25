@@ -87,8 +87,7 @@
 						<tbody>
          					<tr ng-repeat="sub in subnetworks track by $index">
          						<td>
-         							<input type="checkbox">
-									</input>
+									<input ng-model="sub.selected" type="checkbox" class="ace"> <span class="lbl"></span>
          						</td>
  	                            <td>{{sub.id}}</td>
  								<td>{{sub.name}}</td>

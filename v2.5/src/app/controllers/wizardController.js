@@ -153,8 +153,6 @@
       '$rootScope', '$scope', 'wizardService', 'dataService', 'ngTableParams', '$modal', '$timeout', '$cookieStore', function($rootScope, $scope, wizardService, dataService, ngTableParams, $modal, $timeout, $cookieStore) {
         wizardService.networkInit($scope);
         wizardService.watchingTriggeredStep($scope);
-        console.log($scope.cluster.id);
-        console.log($scope.cluster.adapter_name);
 
         if($scope.cluster.adapter_name === "openstack_pike" || $scope.cluster.adapter_name === "openstack_ocata" || $scope.cluster.adapter_name === "openstack_newton") {
           if(!$scope.package_config.network_cfg) {
@@ -241,9 +239,7 @@
             return console.log("modal dismissed");
           });
         };
-
         $scope.openAddProviderModal = function(size) {
-          console.log("i am heer");
           var modalInstance;
           modalInstance = $modal.open({
             templateUrl: "src/app/partials/modalAddProviderNw.tpl.html",
@@ -265,7 +261,6 @@
             $scope.providers = providers;
             $scope.package_config = package_config;
             $scope.cluster.id = cluster_id;
-            // return wizardService.setProviderNw($scope.clusters.id);
           }, function() {
             return console.log("modal dismissed");
           });
