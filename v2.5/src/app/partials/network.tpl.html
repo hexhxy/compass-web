@@ -134,11 +134,6 @@
 				</ul>
 			</div>
 		</div>
-		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-show="cluster.adapter_name=='openstack_pike' || cluster.adapter_name=='openstack_ocata' || cluster.adapter_name=='openstack_newton'" ng-init="tenantNetwork.isCollapsed = true;" ng-click="tenantNetwork.isCollapsed = !tenantNetwork.isCollapsed">Set Tenant Network&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !tenantNetwork.isCollapsed}"></i></span></button></div>
-
-		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-show="cluster.adapter_name=='openstack_pike' || cluster.adapter_name=='openstack_ocata' || cluster.adapter_name=='openstack_newton'" ng-init="providerNetwork.isCollapsed = true;" ng-click="providerNetwork.isCollapsed = !providerNetwork.isCollapsed">Set Provider Network&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !providerNetwork.isCollapsed}"></i></span></button></div>&nbsp;&nbsp;&nbsp;
-
-		<div class="pull-right" style="margin-left: 5px;"><button class="btn btn-sm btn-info" ng-init="autoFillPanel.isCollapsed = true;" ng-click="autoFillPanel.isCollapsed = !autoFillPanel.isCollapsed">Set Subnet&nbsp;&nbsp; <span class="text-danger"><i class="ace-icon fa fa-plus" ng-class="{'fa-minus': !autoFillPanel.isCollapsed}"></i></span></button></div> &nbsp;&nbsp;&nbsp;
 	</div> -->
 	<alert ng-repeat="alert in networkAlerts" class="autofill-success fade-animation" type="success">{{alert.msg}}</alert>
 	<!-- <div class="row">
