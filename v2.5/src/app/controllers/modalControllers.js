@@ -100,7 +100,6 @@
             });
           });
         }
-
         return $scope.cancel = function() {
           return $modalInstance.dismiss('cancel');
         };
