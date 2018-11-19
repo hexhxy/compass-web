@@ -61,6 +61,49 @@
           return $modalInstance.dismiss('cancel');
         };
       }
+    ]).controller('addProviderModalInstanceCtrl', [
+      '$scope', '$modalInstance', 'wizardService', 'dataService', 'wizardFactory', 'providers', 'package_config', 'cluster_id', function($scope, $modalInstance, wizardService, dataService, wizardFactory, providers, package_config, cluster_id) {
+        
+        $scope.providers = angular.copy(providers);
+
+        if ($scope.providers.length === 0) {
+          $scope.providers.push({
+            valid: false
+          });
+        }
+        $scope.addProvider = function() {
+          $scope.providers.push({
+            valid: false
+          });
+        };
+
+        $scope.ok = function() {
+          for(var i=0; i<=$scope.providers.length;i++) {
+            for(var prop in $scope.providers[i]) {
+              if(prop === "valid") {
+                delete $scope.providers[i]["valid"];
+              }
+            }
+          }
+
+          package_config['network_cfg']['provider_net_mappings'] = $scope.providers;
+
+          var targetSysConfigData = {
+            "package_config": package_config
+          };
+          return dataService.updateClusterConfig(cluster_id, targetSysConfigData).success(function(configData) {
+            $modalInstance.close($scope.providers);
+            return wizardFactory.setCommitState({
+              "name": "package_config",
+              "state": "success",
+              "message": ""
+            });
+          });
+        }
+        return $scope.cancel = function() {
+          return $modalInstance.dismiss('cancel');
+        };
+      }
     ]).controller('errorMessageCtrl', [
       '$scope', '$modalInstance', 'title', 'content', function($scope, $modalInstance, title, content) {
         $scope.title = title;
