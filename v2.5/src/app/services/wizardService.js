@@ -1676,10 +1676,10 @@
       WizardService.prototype.addMachineWithoutSwitch = function($scope, $modalInstance, allMachines) {
         var request;
         request = {};
-        request.ipmi_credentials = {}
-        request.ipmi_credentials.ip = $scope.ipmi;
-        request.ipmi_credentials.password = $scope.ipmipass;
-        request.ipmi_credentials.username = $scope.ipmi_username;
+        request.power_manage = {}
+        request.power_manage.ip = $scope.ipmi;
+        request.power_manage.password = $scope.ipmipass;
+        request.power_manage.username = $scope.ipmi_username;
         
         $scope.mac = {}
         for (var i=0; i<$scope.newMac.length; i++) {
