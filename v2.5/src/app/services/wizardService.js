@@ -408,11 +408,8 @@
                 var keyLength_console_credentials, keyLength_service_credentials, typeIsArray;
                 $scope.cluster = this.wizardFactory.getClusterInfo();
                 $scope.service_credentials = this.wizardFactory.getServiceCredentials();
-                console.log($scope.service_credentials);
                 $scope.console_credentials = this.wizardFactory.getConsoleCredentials();
-                console.log($scope.console_credentials);
                 $scope.package_config = this.wizardFactory.getPackageConfig();
-                console.log($scope.package_config);
                 typeIsArray = Array.isArray || function(value) {
                     return {}.toString.call(value) === '[object Array]';
                 };

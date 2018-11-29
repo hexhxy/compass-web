@@ -37,7 +37,7 @@
                             </td>
                             <td>
                                 <select class="max-width-200" ng-model="internal[network_key]">
-                                    <option ng-repeat="(name, interface) in $root.networkMappingInterfaces" ng-hide="interface.is_mgmt" value="{{name}}" ng-selected="internal[network_key] == name">{{name}}</option>
+                                    <option ng-repeat="host in common_hosts" ng-init="internal[network_key]=common_hosts[0]" ng-hide="interface.is_mgmt" value="{{host}}" ng-selected="internal[network_key] == host">{{host}}</option>
                                 </select>
                             </td>
                             <td>
