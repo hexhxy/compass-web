@@ -259,9 +259,11 @@
                 _ref = $scope.subnetworks;
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                     subnet = _ref[_i];
+                    subnet["name"]  = "subnet"+_i;
                     requestData = {
                         "subnet": subnet.subnet
                     };
+                    console.log("subnet", requestData);
                     if (subnet.id === void 0) {
                         updateSubnetConfig = this.dataService.postSubnetConfig(requestData);
                     } else {
@@ -994,7 +996,6 @@
                 $scope.selected_subnets = [];
 
                 for (var i = 0; i <= $scope.subnetworks.length; i++) {
-                    console.log($scope.subnetworks[i]);
                     if ($scope.subnetworks[i] != undefined) {
                         if ($scope.subnetworks[i]["selected"] == true) {
                             $scope.selected_subnets.push($scope.subnetworks[i]);
@@ -1142,7 +1143,6 @@
                 targetSysConfigData = {
                     "package_config": $scope.package_config
                 };
-                console.log($scope.package_config);
                 if ($scope.packageConfigForm.$valid) {
                     return this.dataService.updateClusterConfig($scope.cluster.id, targetSysConfigData).success(function(configData) {
                         return wizardFactory.setCommitState({
