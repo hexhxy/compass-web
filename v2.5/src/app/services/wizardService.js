@@ -257,13 +257,13 @@
                 var findNewSubnetId, promises, requestData, subnet, updateSubnetConfig, _i, _len, _ref;
                 promises = [];
                 _ref = $scope.subnetworks;
+                console.log(_ref);
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                     subnet = _ref[_i];
-                    subnet["name"]  = "subnet"+_i;
                     requestData = {
-                        "subnet": subnet.subnet
+                        "subnet": subnet.subnet,
+                        "name": subnet.name
                     };
-                    console.log("subnet", requestData);
                     if (subnet.id === void 0) {
                         updateSubnetConfig = this.dataService.postSubnetConfig(requestData);
                     } else {
