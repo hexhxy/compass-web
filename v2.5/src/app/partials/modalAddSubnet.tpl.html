@@ -14,7 +14,7 @@
 		<tbody>
 			<tr ng-repeat="sub in subnetworks">
 				<td><input type="text" ng-model="sub.subnet" ng-class="{'red-border': !sub.valid}" placeholder="Subnet" ng-change="subnet_change($index,sub.subnet)" required></td>
-				<td><input type="text" ng-model="sub.name" placeholder="Name"></td>
+				<td><input type="text" ng-model="sub.name" placeholder="Name" required></td>
 				<td><span class="action" ng-click="addSubnetwork()"><i class="fa fa-plus-circle bigger-140 blue"></i></span> 
 					<span ng-show="subnetworks.length > 1" class="action" ng-click="removeSubnetwork($index)"><i class="fa fa-minus-circle bigger-140 blue"></i></span>
 				</td>

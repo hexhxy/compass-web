@@ -168,6 +168,10 @@
                     }
                 }
 
+                $scope.ok = function() {
+                    return wizardService.subnetCommit($scope);
+                  };
+
                 $scope.addInterface = function(newInterface) {
                     return wizardService.addInterface($scope, newInterface);
                 };

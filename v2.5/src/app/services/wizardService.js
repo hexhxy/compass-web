@@ -216,6 +216,13 @@
             WizardService.prototype.networkInit = function($scope) {
                 $scope.cluster = this.wizardFactory.getClusterInfo();
                 $scope.subnetworks = this.wizardFactory.getSubnetworks();
+                if ($scope.subnetworks.length == 0) {
+                    $scope.subnetworks.push({"name": "mgmt"});
+                    $scope.subnetworks.push({"name": "external"});
+                    $scope.subnetworks.push({"name": "tenant"});
+                    $scope.subnetworks.push({"name": "storage"});
+                }
+                
                 for (var i = 0; i <= $scope.subnetworks.length; i++) {
                     if ($scope.subnetworks[i] != undefined) {
                         $scope.subnetworks[i]["selected"] = false;
@@ -253,17 +260,17 @@
                 return _results;
             };
 
-            WizardService.prototype.subnetCommit = function($scope, $modalInstance) {
+            WizardService.prototype.subnetCommit = function($scope) {
                 var findNewSubnetId, promises, requestData, subnet, updateSubnetConfig, _i, _len, _ref;
                 promises = [];
                 _ref = $scope.subnetworks;
+                console.log(_ref);
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                     subnet = _ref[_i];
-                    subnet["name"]  = "subnet"+_i;
                     requestData = {
-                        "subnet": subnet.subnet
+                        "subnet": subnet.subnet,
+                        "name": subnet.name
                     };
-                    console.log("subnet", requestData);
                     if (subnet.id === void 0) {
                         updateSubnetConfig = this.dataService.postSubnetConfig(requestData);
                     } else {
@@ -282,7 +289,7 @@
                             subnet["id"] = id;
                         }
                     }
-                    return $modalInstance.close($scope.subnetworks);
+                    // return $modalInstance.close($scope.subnetworks);
                 });
                 return function(response) {
                     return console.log("promises error", response);

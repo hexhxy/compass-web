@@ -71,13 +71,12 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<h4>All Subnets
-						<span class="action" ng-click="openAddSubnetModal()"><i class="fa fa-plus-circle bigger-140 blue"></i></span>
+						<!-- <span class="action" ng-click="openAddSubnetModal()"><i class="fa fa-plus-circle bigger-140 blue"></i></span> -->
 					</h4>
 					<table class="table table-hover nowrap">
 						<thead>
 							<tr>
 								<th></th>
-								<th>ID</th>
 								<th>Name</th>
 								<th>Subnet</th>
  							</tr>
@@ -87,13 +86,13 @@
          						<td>
 									<input ng-model="sub.selected" type="checkbox" class="ace"> <span class="lbl"></span>
          						</td>
- 	                            <td>{{sub.id}}</td>
- 								<td>{{sub.name}}</td>
- 								<td>{{sub.subnet}}</td>
+								<td>{{sub.name}}</td>
+								<td><input type="text" ng-model="sub.subnet" ng-class="{'red-border': !sub.valid}" placeholder="Subnet" ng-change="subnet_change($index,sub.subnet)" required></td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="space-10"></div>
+			           <button class="btn btn-primary" ng-click="ok()">Save</button>
 				</div>
 			</div>
 			<div class="space-10"></div>
