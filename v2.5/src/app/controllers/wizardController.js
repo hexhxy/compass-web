@@ -447,19 +447,25 @@
                 $scope.allservers = wizardService.getAllMachinesHost();
                 $scope.allAddedSwitches = [];
                 
-                // console.log($scope.allservers);
-
                 $scope.intersected_hosts = [];
+
+                for(var i=0; i<$scope.subnetworks; i++){
+                    console.log("I am heree");
+                    if($scope.subnetworks[i]['selected'] == true) {
+                        console.log($scope.subnetworks[i]);
+                        $scope.selected_subnets.push($scope.subnetworks[i]['name']);
+                    }
+                }
+
+                console.log($scope.selected_subnets);
 
                 for(var i=0; i<$scope.allservers.length; i++){
                     $scope.intersected_hosts.push(Object.keys($scope.allservers[i]['mac']));
                 }
 
                 var join = $scope.intersected_hosts.reduce((join, current) => join.filter(el => current.includes(el)));
-                // console.log(`Intersection is: ${join}`);
 
                 $scope.common_hosts = join;
-                console.log($scope.common_hosts);
 
                 wizardService.getServerColumns().success(function(data) {
                     $scope.server_columns = [];
@@ -533,7 +539,9 @@
                 defaultCfg = function() {
                     $scope.internal = {
                         mgmt: 'eth1',
-                        storage: 'eth1'
+                        storage: 'eth1',
+                        external: 'eth1',
+                        tenant: 'eth1'
                     };
                     $scope.external = {
                         external: 'eth2'
@@ -566,6 +574,17 @@
                 };
                 saveCfg = function() {
                     var networkMapping;
+
+
+
+                    // for (var key in $scope.internal) {
+                    //     for (var i=0; i<$scope.selected_subnets; i++) {
+                    //         if (key != $scope.selected_subnets[i]["name"]) {
+                    //             $scope.internal.pop(key+':'+$scope.internal[key]);
+                    //         }
+                    //     }
+                    // }
+        
                     networkMapping = {
                         internal: $scope.internal,
                         external: $scope.external,

@@ -30,18 +30,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="(network_key, network_value) in internal">
+                        <span>{{subnetworks}} </span>
+                        <tr ng-repeat="item in subnetworks" ng-if="item['selected']==true">
                             <td><span class="external-event margin-right-5 fade-animation" ng-class="{
-                                'label-success': network_key == 'mgmt',
-                                'label-warning': network_key == 'storage'}"><span class="capitalize">{{network_key}}</span></span>
+                                'label-success': item['name'] == 'mgmt',
+                                'label-warning': item['name'] == 'storage',
+                                'label-primary': item['name'] == 'tenant',
+                                'label-secondary': item['name'] == 'external'
+                            }">
+                                <span class="capitalize">{{item["name"]}}</span></span>
                             </td>
                             <td>
-                                <select class="max-width-200" ng-model="internal[network_key]">
-                                    <option ng-repeat="host in common_hosts" ng-init="internal[network_key]=common_hosts[0]" ng-hide="interface.is_mgmt" value="{{host}}" ng-selected="internal[network_key] == host">{{host}}</option>
+                                <select class="max-width-200" ng-model="item['subnet']">
+                                    <option ng-repeat="host in common_hosts" ng-init="selected_subnets[network_key]=common_hosts[0]" ng-hide="interface.is_mgmt" value="{{host}}" ng-selected="selected_subnets[network_key] == host">{{host}}</option>
                                 </select>
                             </td>
                             <td>
-                                <input id="{{name}}-cidr" type="text" class="input-medium" ng-model="ips[network_key].cidr" placeholder="CIDR" ng-change="updateInternalNetwork(network_key)">
+                                <input id="{{name}}-cidr" type="text" class="input-medium" ng-model="item['subnet']" placeholder="CIDR" ng-change="updateInternalNetwork(network_key)">
                             </td>
                             <td>
                                 <input id="{{name}}-ipstart" type="text" class="input-medium" ng-model="ips[network_key].start" placeholder="IP Start">
