@@ -13,9 +13,9 @@
                 <div class="col-sm-6">
                     <h4>Internal Network Interface</h4>
                 </div>
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                     <button class="btn btn-sm btn-info pull-right" ng-init="autoFillButtonDisplay='Enable Autofill'" ng-model="autoFill" style="margin-right:15px; margin-top:5px; margin-bottom:5px;" ng-click="autoFillManage()">{{autoFillButtonDisplay}}</button>
-                </div>
+                </div> -->
                 <table class="table table-hover nowrap">
                     <thead>
                         <tr>
@@ -26,7 +26,8 @@
                             <th>End IP</th>
                             <th>Vlan Configuration</th>
                             <th>Gateway I.P.</th>
-                            <th ng-if="autoFill">Autofill Rules</th>
+                            <th></th>
+                            <!-- <th ng-if="autoFill">Autofill Rules</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -42,35 +43,36 @@
                             </td>
                             <td>
                                 <select class="max-width-200" ng-model="item['subnet']">
-                                    <option ng-repeat="host in common_hosts" ng-init="selected_subnets[network_key]=common_hosts[0]" ng-hide="interface.is_mgmt" value="{{host}}" ng-selected="selected_subnets[network_key] == host">{{host}}</option>
+                                    <option ng-repeat="host in common_hosts" ng-init="selected_subnets[item['name']]=common_hosts[0]" ng-hide="interface.is_mgmt" value="{{host}}" ng-selected="selected_subnets[item['name']] == host">{{host}}</option>
                                 </select>
                             </td>
                             <td>
-                                <input id="{{name}}-cidr" type="text" class="input-medium" ng-model="item['subnet']" placeholder="CIDR" ng-change="updateInternalNetwork(network_key)">
+                                <input id="{{item['name']}}-cidr" type="text" class="input-medium" ng-init="ips[item['name']].cidr=item['subnet']" ng-model="ips[item['name']].cidr " placeholder="CIDR" ng-change="updateInternalNetwork(network_key)">
                             </td>
                             <td>
-                                <input id="{{name}}-ipstart" type="text" class="input-medium" ng-model="ips[network_key].start" placeholder="IP Start">
+                                <input id="{{item['name']}}-ipstart" type="text" class="input-medum" ng-model="ips[item['name']].start" placeholder="IP Start">
                             </td>
                             <td>
-                                <input id="{{name}}-ipend" type="text" class="input-medium" ng-model="ips[network_key].end" placeholder="IP End">
+                                <input id="{{item['name']}}-ipend" type="text" class="input-medium" ng-model="ips[item['name']].end" placeholder="IP End">
                             </td>
                             <td><span class="label-yellow" style="color: #fff">Vlan Tag</span>
-                                <input id="{{name}}-vlan-tag" type="text" class="input-small" ng-model="vlanTags[network_key]" placeholder="Vlan tag">
+                                <input id="{{item['name']}}-vlan-tag" type="text" class="input-small" ng-model="vlanTags[item['name']]" placeholder="Vlan tag">
                             </td>
                             <td>
                                 <input type="text" placeholder="gateway">
                             </td>
+                            <td>                    
+                                <button class="btn btn-sm btn-info pull-right" ng-init="autoFillButtonDisplay='Enable Autofill'" ng-model="autoFill" style="margin-right:15px; margin-top:5px; margin-bottom:5px;" ng-click="autoFillManage()">{{autoFillButtonDisplay}}</button>
+                            </td>
                             <td ng-if="autoFill">
-                                <span ng-show="value.is_mgmt">
-                                  <input id="{{interface_name}}-ipstart" type="text" ng-model="sub.autoInput" class="input-medium" placeholder="IP Start">
-                                  <select id="{{interface_name}}-increase-num">
+                                  <input id="{{item['name']}}-ipstart" type="text" ng-model="sub.autoInput" class="input-medium" placeholder="IP Start">
+                                  <select id="{{item['name']}}-increase-num">
                                     <option value="1">Increase by 1</option>
                                     <option value="2">Increase by 2</option>
                                     <option value="3">Increase by 3</option>
                                     <option value="4">Increase by 4</option>
                                     <option value="5">Increase by 5</option>
                                   </select>
-                                 </span>
                             </td>
                         </tr>
                         <tr style="border:none">
