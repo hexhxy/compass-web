@@ -447,24 +447,30 @@
                 $scope.allservers = wizardService.getAllMachinesHost();
                 $scope.allAddedSwitches = [];
                 
-                // console.log($scope.allservers);
-
                 $scope.intersected_hosts = [];
+
+                for(var i=0; i<$scope.subnetworks; i++){
+                    console.log("I am heree");
+                    if($scope.subnetworks[i]['selected'] == true) {
+                        console.log($scope.subnetworks[i]);
+                        $scope.selected_subnets.push($scope.subnetworks[i]['name']);
+                    }
+                }
+
+                console.log($scope.selected_subnets);
 
                 for(var i=0; i<$scope.allservers.length; i++){
                     $scope.intersected_hosts.push(Object.keys($scope.allservers[i]['mac']));
                 }
 
                 var join = $scope.intersected_hosts.reduce((join, current) => join.filter(el => current.includes(el)));
-                // console.log(`Intersection is: ${join}`);
 
                 $scope.common_hosts = join;
-                console.log($scope.common_hosts);
 
                 wizardService.getServerColumns().success(function(data) {
                     $scope.server_columns = [];
                     for (var i = 0; i < data.showall.length; i++) {
-                        if (data.showall[i].field != "switch_ip" && data.showall[i].field != "port") {
+                        if (data.showall[i].field != "switch_ip" && data.showall[i].field != "port" && data.showall[i].field != "os_name" && data.showall[i].field != "os_installed") {
                             $scope.server_columns.push(data.showall[i]);
                         };
                     };
@@ -532,40 +538,53 @@
                 };
                 defaultCfg = function() {
                     $scope.internal = {
-                        mgmt: 'eth1',
-                        storage: 'eth1'
+                        mgmt: 'eth0',
+                        storage: 'eth1',
+                        external: 'eth1',
+                        tenant: 'eth1'
                     };
+
                     $scope.external = {
-                        external: 'eth2'
-                    };
+                        external: 'eth1'
+                    }
+
                     $scope.vlanTags = {
                         mgmt: '101',
-                        storage: '102'
+                        storage: '102',
+                        external: '103',
+                        tenant: '104'
                     };
+
                     $scope.ips = {
                         mgmt: {
-                            start: '172.16.1.1',
-                            end: '172.16.1.254',
-                            cidr: '172.16.1.0/24',
-                            internal_vip: '172.16.1.222'
+                            start: '',
+                            end: '',
+                            cidr: '',
+                            internal_vip: ''
                         },
                         external: {
-                            start: '10.145.250.210',
-                            end: '10.145.250.220',
-                            cidr: '10.145.250.0/24',
-                            gw_ip: '10.145.250.1',
-                            public_vip: '10.145.250.222'
+                            start: '',
+                            end: '',
+                            cidr: '',
+                            gw_ip: '',
+                            public_vip: ''
                         },
                         storage: {
-                            start: '172.16.2.1',
-                            end: '172.16.2.254',
-                            cidr: '172.16.2.0/24'
+                            start: '',
+                            end: '',
+                            cidr: ''
+                        },
+                        tenant: {
+                            start: '',
+                            end: '',
+                            cidr: ''
                         }
                     };
                     $scope.updateExternalNetwork('external');
                 };
                 saveCfg = function() {
                     var networkMapping;
+        
                     networkMapping = {
                         internal: $scope.internal,
                         external: $scope.external,

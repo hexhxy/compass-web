@@ -630,6 +630,8 @@
                 $scope.cluster = this.wizardFactory.getClusterInfo();
                 $scope.interfaces = this.wizardFactory.getInterfaces();
                 $scope.original_networking = this.wizardFactory.getNetworkMapping();
+                $scope.subnetworks = this.wizardFactory.getSubnetworks();
+
                 _ref = $scope.interfaces;
                 _results = [];
                 for (key in _ref) {
