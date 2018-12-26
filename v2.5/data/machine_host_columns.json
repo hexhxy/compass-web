@@ -30,7 +30,7 @@
     }, {
         "title": "OS Reinstall",
         "field": "os_installed",
-        "visible": true
+        "visible": false
     }, {
         "title": "State",
         "field": "state",

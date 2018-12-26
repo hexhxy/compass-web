@@ -1,3 +1,4 @@
+
 (function() {
     define(['./baseController'], function() {
         'use strict';
@@ -479,13 +480,19 @@
 
                 wizardService.displayDataInTable($scope, $scope.allservers);
 
-                $scope.autoFillManage = function() {
-                    $scope.autoFill = !$scope.autoFill;
-                    if ($scope.autoFill) {
-                        return $scope.autoFillButtonDisplay = "Disable Autofill";
-                    } else {
-                        return $scope.autoFillButtonDisplay = "Enable Autofill";
-                    }
+                $scope.autoFillManage = function(subnet_interface, subnet_vlan) {
+                    $scope.auto = true;
+                    $scope.autofill_subnet_interface = subnet_interface;
+                    $scope.autofill_subnet_vlan = subnet_vlan;
+
+                    console.log($scope.autofill_subnet_interface);
+                    console.log($scope.autofill_subnet_vlan);
+                    // $scope.autoFill = !$scope.autoFill;
+                    // if ($scope.autoFill) {
+                    //     return $scope.autoFillButtonDisplay = "Disable Autofill";
+                    // } else {
+                    //     return $scope.autoFillButtonDisplay = "Enable Autofill";
+                    // }
                 };
                 $scope.autofill = function(alertFade) {
                     var hostname_rule, interval, ip_start, key, value, _ref;
