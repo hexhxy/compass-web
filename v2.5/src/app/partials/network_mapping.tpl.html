@@ -62,7 +62,7 @@
                                     <input type="text" placeholder="gateway">
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-info pull-right" ng-init="autoFillButtonDisplay='Enable Autofill'" ng-model="autoFill" style="margin-right:15px; margin-top:5px; margin-bottom:5px;" ng-click="autoFillManage(internal[item['name']], vlanTags[item['name']])">{{autoFillButtonDisplay}}</button>
+                                    <button class="btn btn-sm btn-info pull-right" ng-init="autoFillButtonDisplay='Enable Autofill'" ng-model="autoFill" style="margin-right:15px; margin-top:5px; margin-bottom:5px;" ng-click="autoFillManage(item['name'], ips[item['name']].start, ips[item['name']].end, internal[item['name']], vlanTags[item['name']])">{{autoFillButtonDisplay}}</button>
                                 </td>
                                 <td ng-if="autoFill">
                                     <input id="{{item['name']}}-ipstart" type="text" ng-model="sub.autoInput" class="input-medium" placeholder="IP Start">
@@ -137,7 +137,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="server in $data | filter: search" ng-init="total=$data.length;serverIndex = $index; server.networks = server.networks === undefinded? {} : server.networks">
+                            <tr ng-repeat="server in $data | filter: search" ng-init="total=$data.length;serverIndex = $index; server.networks = server.networks === undefined? {} : server.networks">
                                 <td class="center-align" ng-repeat="column in server_columns" ng-show="column.visible" sortable="column.field">
                                     <span ng-switch on="column.field">
                                         <span ng-switch-when="hostname">
@@ -165,9 +165,9 @@
                   server.networks[name];interfaceIndex=$index">
                                     <input ng-model="server.networks[name].ip" placeholder="IP Address" class="form-control max-width-150 margin-bottom-0" type="text" ng-keypress data-position="position_{{total*(interfaceIndex+1)+serverIndex}}">
                                 </td> -->
-                                <td>
+                                <td> {{subnet_name}}
                                 <span class="eth-width" ng-show="auto">
-                                    <input ng-model="server.networks[name].ip" placeholder="IP Address" class="form-control max-width-150 margin-bottom-0" type="text" ng-keypress data-position="position_{{total*(interfaceIndex+1)+serverIndex}}">
+                                    <input ng-model="subnet.networks[subnet_name].ip" ng-init="increment_ip(autofill_subnet_startip, 1, subnet_name)" placeholder="IP Address" class="form-control max-width-150 margin-bottom-0" type="text" ng-keypress data-position="position_{{total*(interfaceIndex+1)+serverIndex}}">
                                 </span>
                                 </td>
                             </tr>
