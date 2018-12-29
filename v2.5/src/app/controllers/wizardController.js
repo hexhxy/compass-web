@@ -1,3 +1,4 @@
+
 (function() {
     define(['./baseController'], function() {
         'use strict';
@@ -457,8 +458,6 @@
                     }
                 }
 
-                console.log($scope.selected_subnets);
-
                 for(var i=0; i<$scope.allservers.length; i++){
                     $scope.intersected_hosts.push(Object.keys($scope.allservers[i]['mac']));
                 }
@@ -479,14 +478,26 @@
 
                 wizardService.displayDataInTable($scope, $scope.allservers);
 
-                $scope.autoFillManage = function() {
-                    $scope.autoFill = !$scope.autoFill;
-                    if ($scope.autoFill) {
-                        return $scope.autoFillButtonDisplay = "Disable Autofill";
-                    } else {
-                        return $scope.autoFillButtonDisplay = "Enable Autofill";
-                    }
+                $scope.autoFillManage = function(subnet_name, subnet_startip, subnet_endip, subnet_interface, subnet_vlan) {
+                    $scope.auto = true;
+                    $scope.subnet_name = subnet_name;
+                    $scope.autofill_subnet_interface = subnet_interface;
+                    $scope.autofill_subnet_vlan = subnet_vlan;
+                    $scope.autofill_subnet_startip = subnet_startip;
+                    $scope.autofill_subnet_endip = subnet_endip;
+
+                    console.log($scope.allservers);
+                    console.log($scope.subnet_name);
+                    console.log($scope.autofill_subnet_startip);
+                    console.log($scope.autofill_subnet_vlan);
+                    // $scope.autoFill = !$scope.autoFill;
+                    // if ($scope.autoFill) {
+                    //     return $scope.autoFillButtonDisplay = "Disable Autofill";
+                    // } else {
+                    //     return $scope.autoFillButtonDisplay = "Enable Autofill";
+                    // }
                 };
+
                 $scope.autofill = function(alertFade) {
                     var hostname_rule, interval, ip_start, key, value, _ref;
                     _ref = $scope.interfaces;
@@ -507,6 +518,11 @@
                         }, alertFade);
                     }
                 };
+
+                $scope.increment_ip = function(ip_start, interval, key) {
+                    console.log(ip_start, interval, key);
+                    wizardService.fillIPBySequence($scope, ip_start, interval, key);
+                }
 
                 $scope.updateInternalNetwork = function(network_name) {
                     if ($scope.ips[network_name].cidr.split('.') < 4) {
