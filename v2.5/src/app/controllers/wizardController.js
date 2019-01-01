@@ -1,3 +1,4 @@
+
 (function() {
     define(['./baseController'], function() {
         'use strict';
@@ -446,18 +447,23 @@
                 wizardService.watchingTriggeredStep($scope);
                 $scope.allservers = wizardService.getAllMachinesHost();
                 $scope.allAddedSwitches = [];
-                
+                $scope.full_selected_subnets = [];
+                $scope.selected_subnets = [];
                 $scope.intersected_hosts = [];
 
-                for(var i=0; i<$scope.subnetworks; i++){
+                console.log($scope.subnetworks);
+
+                for (var i=0; i<$scope.subnetworks.length; i++){
                     console.log("I am heree");
-                    if($scope.subnetworks[i]['selected'] == true) {
+                    if ($scope.subnetworks[i]['selected'] == true) {
                         console.log($scope.subnetworks[i]);
                         $scope.selected_subnets.push($scope.subnetworks[i]['name']);
+                        $scope.full_selected_subnets.push($scope.subnetworks[i]);
                     }
                 }
-
+                
                 console.log($scope.selected_subnets);
+                console.log($scope.full_selected_subnets);
 
                 for(var i=0; i<$scope.allservers.length; i++){
                     $scope.intersected_hosts.push(Object.keys($scope.allservers[i]['mac']));
@@ -470,7 +476,7 @@
                 wizardService.getServerColumns().success(function(data) {
                     $scope.server_columns = [];
                     for (var i = 0; i < data.showall.length; i++) {
-                        if (data.showall[i].field != "switch_ip" && data.showall[i].field != "port") {
+                        if (data.showall[i].field != "switch_ip" && data.showall[i].field != "port" && data.showall[i].field != "os_name" && data.showall[i].field != "os_installed") {
                             $scope.server_columns.push(data.showall[i]);
                         };
                     };
@@ -479,14 +485,30 @@
 
                 wizardService.displayDataInTable($scope, $scope.allservers);
 
-                $scope.autoFillManage = function() {
-                    $scope.autoFill = !$scope.autoFill;
-                    if ($scope.autoFill) {
-                        return $scope.autoFillButtonDisplay = "Disable Autofill";
-                    } else {
-                        return $scope.autoFillButtonDisplay = "Enable Autofill";
-                    }
+                $scope.autoFillManage = function(subnet_name, subnet_startip, subnet_endip, subnet_interface, subnet_vlan) {
+                    $scope.auto = true;
+                    $scope.subnet_name = subnet_name;
+                    $scope.autofill_subnet_interface = subnet_interface;
+                    $scope.autofill_subnet_vlan = subnet_vlan;
+                    $scope.autofill_subnet_startip = subnet_startip;
+                    $scope.autofill_subnet_endip = subnet_endip;
+
+                    console.log($scope.allservers);
+                    console.log($scope.subnet_name);
+                    console.log($scope.autofill_subnet_startip);
+                    console.log($scope.autofill_subnet_vlan);
+
+                    wizardService.fillIPBySequence($scope, $scope.autofill_subnet_startip, 1, $scope.subnet_name);
+                    // $scope.autoFill = !$scope.autoFill;
+                    // if ($scope.autoFill) {
+                    //     return $scope.autoFillButtonDisplay = "Disable Autofill";
+                    // } else {
+                    //     return $scope.autoFillButtonDisplay = "Enable Autofill";
+                    // }
+
+
                 };
+
                 $scope.autofill = function(alertFade) {
                     var hostname_rule, interval, ip_start, key, value, _ref;
                     _ref = $scope.interfaces;
@@ -538,52 +560,52 @@
                 };
                 defaultCfg = function() {
                     $scope.internal = {
-                        mgmt: 'eth1',
+                        mgmt: 'eth0',
                         storage: 'eth1',
                         external: 'eth1',
                         tenant: 'eth1'
                     };
+
                     $scope.external = {
-                        external: 'eth2'
-                    };
+                        external: 'eth1'
+                    }
+
                     $scope.vlanTags = {
                         mgmt: '101',
-                        storage: '102'
+                        storage: '102',
+                        external: '103',
+                        tenant: '104'
                     };
+
                     $scope.ips = {
                         mgmt: {
-                            start: '172.16.1.1',
-                            end: '172.16.1.254',
-                            cidr: '172.16.1.0/24',
-                            internal_vip: '172.16.1.222'
+                            start: '',
+                            end: '',
+                            cidr: '',
+                            internal_vip: ''
                         },
                         external: {
-                            start: '10.145.250.210',
-                            end: '10.145.250.220',
-                            cidr: '10.145.250.0/24',
-                            gw_ip: '10.145.250.1',
-                            public_vip: '10.145.250.222'
+                            start: '',
+                            end: '',
+                            cidr: '',
+                            gw_ip: '',
+                            public_vip: ''
                         },
                         storage: {
-                            start: '172.16.2.1',
-                            end: '172.16.2.254',
-                            cidr: '172.16.2.0/24'
+                            start: '',
+                            end: '',
+                            cidr: ''
+                        },
+                        tenant: {
+                            start: '',
+                            end: '',
+                            cidr: ''
                         }
                     };
                     $scope.updateExternalNetwork('external');
                 };
                 saveCfg = function() {
                     var networkMapping;
-
-
-
-                    // for (var key in $scope.internal) {
-                    //     for (var i=0; i<$scope.selected_subnets; i++) {
-                    //         if (key != $scope.selected_subnets[i]["name"]) {
-                    //             $scope.internal.pop(key+':'+$scope.internal[key]);
-                    //         }
-                    //     }
-                    // }
         
                     networkMapping = {
                         internal: $scope.internal,
@@ -728,7 +750,8 @@
                     return wizardService.networkMappingCommit($scope, networkCfg, $scope.networkMapping, neutronCfg, sendRequest);
                 };
             }
-        ]).controller('reviewCtrl', [
+        ])
+        .controller('reviewCtrl', [
             '$scope', 'wizardService', 'ngTableParams', '$filter', '$location', '$anchorScroll',
             function($scope, wizardService, ngTableParams, $filter, $location, $anchorScroll) {
                 wizardService.reviewInit($scope);

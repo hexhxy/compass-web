@@ -333,6 +333,8 @@
             };
 
             WizardService.prototype.fillIPBySequence = function($scope, ipStart, interval, key) {
+                console.log(ipStart);
+                console.log(key);
                 var ip, ipParts, ipStartParts, server, _i, _len, _ref;
                 if (ipStart === "") {
                     return;
@@ -342,8 +344,10 @@
                     return parseInt(x);
                 });
                 _ref = $scope.servers;
+                console.log($scope.servers);
                 for (_i = 0, _len = _ref.length; _i < _len; _i++) {
                     server = _ref[_i];
+                    console.log(server);
                     if (ipParts[3] > 255) {
                         ipParts[3] = ipParts[3] - 256;
                         ipParts[2] ++;
@@ -357,14 +361,21 @@
                         ipParts[0] ++;
                     }
                     if (ipParts[0] > 255) {
-                        server.networks[key].ip = "";
+                        console.log("here");
+                        server.networks[key] = {};
+                        server.networks;[key]["ip"] = "";
                         return;
                     } else {
                         ip = ipParts[0] + "." + ipParts[1] + "." + ipParts[2] + "." + ipParts[3];
-                        server.networks[key].ip = ip;
+                        console.log(ip);
+                        server.networks[key] = {};
+                        server.networks[key]["ip"] = ip;
+                        // server["networks"][key]["ip"] = ip;
                         ipParts[3] = ipParts[3] + interval;
                     }
                 }
+
+                console.log(server);
             };
 
             WizardService.prototype.getNetMaskFromCIDR = function(cidr) {
