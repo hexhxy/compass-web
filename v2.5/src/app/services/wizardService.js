@@ -1682,7 +1682,7 @@
                 $scope.mac = {}
                 for (var i = 0; i < $scope.newMac.length; i++) {
                     var eth_key = "eth" + $scope.newMac[i].counter;
-                    $scope.mac[eth_key] = $scope.newMac[i].address;
+                    $scope.mac[eth_key] = $scope.newMac[i].address.toUpperCase();
                 }
 
                 request.mac = $scope.mac;
