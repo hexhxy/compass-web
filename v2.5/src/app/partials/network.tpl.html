@@ -48,15 +48,15 @@
 							<tr>
 								<td width="450px;">
 									<label>Type</label>
-									<input type="text" placeholder="Type" ng-model="tenant_net.type">
+									<input type="text" placeholder="Type" ng-model="tenant_net.type" ng-init="tenant_net.type='vxlan'">
 								</td>
 								<td width="450px;">
 									<label>Range</label>
-									<input type="text" placeholder="Range" ng-model="tenant_net.range">
+									<input type="text" placeholder="Range" ng-model="tenant_net.range" ng-init="'1:1000'">
 								</td>
 								<td width="450px;">
 									<label>Provider Network</label>
-									<input type="text" placeholder="Provider Network" ng-model="tenant_net.provider_network">
+									<input type="text" placeholder="Provider Network" ng-model="tenant_net.provider_network" ng-init="tenant_net.provider_network='None'">
 								</td>
 							</tr>
 					</table>
