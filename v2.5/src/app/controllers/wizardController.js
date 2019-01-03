@@ -447,14 +447,18 @@
                 wizardService.watchingTriggeredStep($scope);
                 $scope.allservers = wizardService.getAllMachinesHost();
                 $scope.allAddedSwitches = [];
-                
+                $scope.full_selected_subnets = [];
+                $scope.selected_subnets = [];
                 $scope.intersected_hosts = [];
 
-                for(var i=0; i<$scope.subnetworks; i++){
+                console.log($scope.subnetworks);
+
+                for (var i=0; i<$scope.subnetworks.length; i++){
                     console.log("I am heree");
-                    if($scope.subnetworks[i]['selected'] == true) {
+                    if ($scope.subnetworks[i]['selected'] == true) {
                         console.log($scope.subnetworks[i]);
                         $scope.selected_subnets.push($scope.subnetworks[i]['name']);
+                        $scope.full_selected_subnets.push($scope.subnetworks[i]);
                     }
                 }
 
@@ -490,12 +494,8 @@
                     console.log($scope.subnet_name);
                     console.log($scope.autofill_subnet_startip);
                     console.log($scope.autofill_subnet_vlan);
-                    // $scope.autoFill = !$scope.autoFill;
-                    // if ($scope.autoFill) {
-                    //     return $scope.autoFillButtonDisplay = "Disable Autofill";
-                    // } else {
-                    //     return $scope.autoFillButtonDisplay = "Enable Autofill";
-                    // }
+
+                    wizardService.fillIPBySequence($scope, $scope.autofill_subnet_startip, 1, $scope.subnet_name);
                 };
 
                 $scope.autofill = function(alertFade) {
@@ -744,7 +744,8 @@
                     return wizardService.networkMappingCommit($scope, networkCfg, $scope.networkMapping, neutronCfg, sendRequest);
                 };
             }
-        ]).controller('reviewCtrl', [
+        ])
+        .controller('reviewCtrl', [
             '$scope', 'wizardService', 'ngTableParams', '$filter', '$location', '$anchorScroll',
             function($scope, wizardService, ngTableParams, $filter, $location, $anchorScroll) {
                 wizardService.reviewInit($scope);
