@@ -98,7 +98,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="space-10"></div>
+                                       <div class="space-10"></div>
                     <div class="row">
                         <div class="col-sm-6">
                             <span style="margin-right: 10px">Management Network Virtual IP</span>
@@ -136,13 +136,13 @@
                                 </th>
                                 <!-- <th class="networkDeleteView" ng-repeat="(name, value) in interfaces" ng-show="value.is_mgmt" ng-mouseover="deleteView=true" ng-mouseleave="deleteView=false">{{name}} <span ng-click="deleteInterface(name)" class="action"><i ng-class="{'networkDeleteButton': deleteView}" class="ace-icon fa fa-times-circle bigger-120 light-grey"></i></span>
                                 </th> -->
-
                                 <th ng-show="selected_subnets[0]=='mgmt'|| selected_subnets[1]=='mgmt' || selected_subnets[2]=='mgmt' || selected_subnets[3]=='mgmt'">mgmt</th>
                                 <th ng-show="selected_subnets[0]=='tenant'|| selected_subnets[1]=='tenant' || selected_subnets[2]=='tenant' || selected_subnets[3]=='tenant'">tenant</th>
                                 <th ng-show="selected_subnets[0]=='external'|| selected_subnets[1]=='external' || selected_subnets[2]=='external' || selected_subnets[3]=='external'">external</th>
                                 <th ng-show="selected_subnets[0]=='storage'|| selected_subnets[1]=='storage' || selected_subnets[2]=='storage' || selected_subnets[3]=='storage'">storage</th>
 
                                 <!-- <th id="{{$index}}" ng-repeat="item in full_selected_subnets track by $index">{{item["name"]}}</th> -->
+
                             </tr>
                         </thead>
                         <tbody>

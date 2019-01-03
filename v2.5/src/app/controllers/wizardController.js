@@ -461,9 +461,6 @@
                         $scope.full_selected_subnets.push($scope.subnetworks[i]);
                     }
                 }
-                
-                console.log($scope.selected_subnets);
-                console.log($scope.full_selected_subnets);
 
                 for(var i=0; i<$scope.allservers.length; i++){
                     $scope.intersected_hosts.push(Object.keys($scope.allservers[i]['mac']));
@@ -499,14 +496,6 @@
                     console.log($scope.autofill_subnet_vlan);
 
                     wizardService.fillIPBySequence($scope, $scope.autofill_subnet_startip, 1, $scope.subnet_name);
-                    // $scope.autoFill = !$scope.autoFill;
-                    // if ($scope.autoFill) {
-                    //     return $scope.autoFillButtonDisplay = "Disable Autofill";
-                    // } else {
-                    //     return $scope.autoFillButtonDisplay = "Enable Autofill";
-                    // }
-
-
                 };
 
                 $scope.autofill = function(alertFade) {
@@ -529,6 +518,11 @@
                         }, alertFade);
                     }
                 };
+
+                $scope.increment_ip = function(ip_start, interval, key) {
+                    console.log(ip_start, interval, key);
+                    wizardService.fillIPBySequence($scope, ip_start, interval, key);
+                }
 
                 $scope.updateInternalNetwork = function(network_name) {
                     if ($scope.ips[network_name].cidr.split('.') < 4) {
