@@ -1023,6 +1023,7 @@
                     }
                 }
 
+                $scope.package_config['network_cfg'] = {};
                 $scope.package_config['network_cfg']['tenant_net_info'] = $scope.tenant_net;
 
                 var targetSysConfigData = {

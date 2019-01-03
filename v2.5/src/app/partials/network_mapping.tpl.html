@@ -22,6 +22,7 @@
                                 <th>Network</th>
                                 <th>NIC</th>
                                 <th>CIDR</th>
+                                <th>Reserved Range</th>
                                 <th>Start IP</th>
                                 <th>End IP</th>
                                 <th>Vlan Configuration</th>
@@ -48,6 +49,9 @@
                                 </td>
                                 <td>
                                     <input id="{{item['name']}}-cidr" type="text" class="input-medium" ng-init="ips[item['name']].cidr=item['subnet']" ng-model="ips[item['name']].cidr " placeholder="CIDR" ng-change="updateInternalNetwork(network_key)">
+                                </td>
+                                <td>
+                                    <input id="{{item['name']}}-reserved_range" type="text" class="input-medium" ng-model="item['reserved_range']"> 
                                 </td>
                                 <td>
                                     <input id="{{item['name']}}-ipstart" type="text" class="input-medum" ng-model="ips[item['name']].start" placeholder="IP Start">
