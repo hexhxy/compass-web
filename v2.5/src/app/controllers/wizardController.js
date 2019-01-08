@@ -499,14 +499,6 @@
                     console.log($scope.autofill_subnet_vlan);
 
                     wizardService.fillIPBySequence($scope, $scope.autofill_subnet_startip, 1, $scope.subnet_name);
-                    // $scope.autoFill = !$scope.autoFill;
-                    // if ($scope.autoFill) {
-                    //     return $scope.autoFillButtonDisplay = "Disable Autofill";
-                    // } else {
-                    //     return $scope.autoFillButtonDisplay = "Enable Autofill";
-                    // }
-
-
                 };
 
                 $scope.autofill = function(alertFade) {
