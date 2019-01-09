@@ -160,12 +160,16 @@
                 wizardService.watchingTriggeredStep($scope);
 
                 if ($scope.cluster.adapter_name === "openstack_pike" || $scope.cluster.adapter_name === "openstack_ocata" || $scope.cluster.adapter_name === "openstack_newton") {
-                    if (!$scope.package_config.network_cfg) {
-                        $scope.providers = [];
-                        $scope.tenant_net = [];
-                    } else {
+                    if (!$scope.package_config.network_cfg || $scope.package_config.network_cfg == undefined) {
+                        $scope.package_config["network_cfg"] = {};
+                        $scope.package_config["network_cfg"]["provider_net_mappings"] = [];
+                        var pnm = {"name": "br-provider", "network": "physnet", "interface": "eth1", "type": "ovs"}
+                        $scope.package_config["network_cfg"]["provider_net_mappings"].push(pnm);
                         $scope.providers = $scope.package_config.network_cfg.provider_net_mappings;
                         $scope.tenant_net = $scope.package_config.network_cfg.tenant_net_info;
+                    } else {
+                        $scope.providers = [];
+                        $scope.tenant_net = [];
                     }
                 }
 
