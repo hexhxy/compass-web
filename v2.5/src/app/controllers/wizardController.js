@@ -159,7 +159,8 @@
                 wizardService.networkInit($scope);
                 wizardService.watchingTriggeredStep($scope);
 
-                if ($scope.cluster.adapter_name === "openstack_pike" || $scope.cluster.adapter_name === "openstack_ocata" || $scope.cluster.adapter_name === "openstack_newton") {
+                if ($scope.cluster.adapter_name.toLowercase().startsWith("openstack")) {
+                    // can use regex as well: "^(openstack.*$).*"
                     if (!$scope.package_config.network_cfg || $scope.package_config.network_cfg == undefined) {
                         $scope.package_config["network_cfg"] = {};
                         $scope.package_config["network_cfg"]["provider_net_mappings"] = [];
